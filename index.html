@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Three-Phase Power Analyzer</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- PDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar">
+
+            <div class="logo">
+                ⚡ PowerAnalyzer
+            </div>
+
+            <div class="nav-links">
+                <a href="#home" data-en="Home" data-fr="Accueil">Home</a>
+                <a href="#about" data-en="About" data-fr="À propos">About</a>
+                <a href="#analyzer" data-en="Analyzer" data-fr="Analyseur">Analyzer</a>
+                <a href="#formulas" data-en="Formulas" data-fr="Formules">Formulas</a>
+                <a href="#author" data-en="Author" data-fr="Auteur">Author</a>
+            </div>
+
+            <div class="nav-buttons">
+                <button onclick="toggleLanguage()" id="languageBtn">🇫🇷 FR</button>
+                <button onclick="toggleDarkMode()" id="darkBtn">🌙</button>
+            </div>
+
+        </nav>
+    </header>
+
+
+    <main>
+
+        <!-- ================= HOME ================= -->
+
+        <section id="home" class="hero">
+
+            <div class="hero-content">
+
+                <span class="badge">
+                    Electrical Engineering Project
+                </span>
+
+                <h1>
+                    Three-Phase<br>
+                    <span>Power Analyzer</span>
+                </h1>
+
+                <p data-en="A web-based electrical engineering tool for analyzing balanced three-phase systems."
+                    data-fr="Un outil web d'ingénierie électrique pour analyser les systèmes triphasés équilibrés.">
+                    A web-based electrical engineering tool for analyzing balanced three-phase systems.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a href="#analyzer" class="primary-btn">
+                        ⚡ <span data-en="Launch Analyzer" data-fr="Lancer l'analyseur">
+                            Launch Analyzer
+                        </span>
+                    </a>
+
+                    <a href="https://github.com/YOUR-USERNAME/three-phase-power-analyzer" target="_blank"
+                        class="secondary-btn">
+                        GitHub ↗
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ABOUT ================= -->
+
+        <section id="about" class="section">
+
+            <div class="section-title">
+
+                <span>01</span>
+
+                <h2 data-en="About the Project" data-fr="À propos du projet">
+                    About the Project
+                </h2>
+
+            </div>
+
+            <div class="about-grid">
+
+                <div class="about-card">
+
+                    <div class="icon">⚡</div>
+
+                    <h3 data-en="Electrical Analysis" data-fr="Analyse électrique">
+                        Electrical Analysis
+                    </h3>
+
+                    <p data-en="Calculate active, reactive and apparent power in balanced three-phase systems."
+                        data-fr="Calculer les puissances active, réactive et apparente dans les systèmes triphasés équilibrés.">
+                        Calculate active, reactive and apparent power in balanced three-phase systems.
+                    </p>
+
+                </div>
+
+
+                <div class="about-card">
+
+                    <div class="icon">🔺</div>
+
+                    <h3 data-en="Star & Delta" data-fr="Étoile & Triangle">
+                        Star & Delta
+                    </h3>
+
+                    <p data-en="Convert line quantities into phase quantities for Star and Delta connections."
+                        data-fr="Convertir les grandeurs de ligne en grandeurs de phase pour les couplages Étoile et Triangle.">
+                        Convert line quantities into phase quantities for Star and Delta connections.
+                    </p>
+
+                </div>
+
+
+                <div class="about-card">
+
+                    <div class="icon">📊</div>
+
+                    <h3 data-en="Dynamic Visualization" data-fr="Visualisation dynamique">
+                        Dynamic Visualization
+                    </h3>
+
+                    <p data-en="Visualize the relationship between P, Q and S using a dynamic power triangle."
+                        data-fr="Visualiser la relation entre P, Q et S grâce à un triangle des puissances dynamique.">
+                        Visualize the relationship between P, Q and S using a dynamic power triangle.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ANALYZER ================= -->
+
+        <section id="analyzer" class="section analyzer-section">
+
+            <div class="section-title">
+
+                <span>02</span>
+
+                <h2 data-en="Power Analyzer" data-fr="Analyseur de puissance">
+                    Power Analyzer
+                </h2>
+
+            </div>
+
+
+            <div class="calculator">
+
+                <!-- INPUTS -->
+
+                <div class="inputs-panel">
+
+                    <h3 data-en="Input Parameters" data-fr="Paramètres d'entrée">
+                        Input Parameters
+                    </h3>
+
+
+                    <label data-en="Connection Type" data-fr="Type de couplage">
+                        Connection Type
+                    </label>
+
+                    <select id="connection">
+
+                        <option value="star">
+                            ⭐ Star (Y)
+                        </option>
+
+                        <option value="delta">
+                            🔺 Delta (Δ)
+                        </option>
+
+                    </select>
+
+
+                    <label data-en="Line Voltage (V)" data-fr="Tension de ligne (V)">
+                        Line Voltage (V)
+                    </label>
+
+                    <input type="number" id="voltage" placeholder="Example: 400" min="0">
+
+
+                    <label data-en="Line Current (A)" data-fr="Courant de ligne (A)">
+                        Line Current (A)
+                    </label>
+
+                    <input type="number" id="current" placeholder="Example: 10" min="0">
+
+
+                    <label data-en="Power Factor (cos φ)" data-fr="Facteur de puissance (cos φ)">
+                        Power Factor (cos φ)
+                    </label>
+
+                    <input type="number" id="pf" placeholder="Example: 0.8" min="0" max="1" step="0.01">
+
+
+                    <p id="error"></p>
+
+
+                    <div class="button-row">
+
+                        <button class="calculate-btn" onclick="calculatePower()">
+                            ⚡
+                            <span data-en="Calculate" data-fr="Calculer">
+                                Calculate
+                            </span>
+                        </button>
+
+
+                        <button class="reset-btn" onclick="resetCalculator()">
+                            ↻
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RESULTS -->
+
+                <div class="results-panel">
+
+                    <h3 data-en="Results" data-fr="Résultats">
+                        Results
+                    </h3>
+
+
+                    <div class="results-grid">
+
+                        <div class="result-card">
+
+                            <span>Phase Voltage</span>
+
+                            <strong id="phaseVoltage">—</strong>
+
+                            <small>V</small>
+
+                        </div>
+
+
+                        <div class="result-card">
+
+                            <span>Phase Current</span>
+
+                            <strong id="phaseCurrent">—</strong>
+
+                            <small>A</small>
+
+                        </div>
+
+
+                        <div class="result-card">
+
+                            <span>Active Power</span>
+
+                            <strong id="activePower">—</strong>
+
+                            <small>kW</small>
+
+                        </div>
+
+
+                        <div class="result-card">
+
+                            <span>Reactive Power</span>
+
+                            <strong id="reactivePower">—</strong>
+
+                            <small>kVAR</small>
+
+                        </div>
+
+
+                        <div class="result-card">
+
+                            <span>Apparent Power</span>
+
+                            <strong id="apparentPower">—</strong>
+
+                            <small>kVA</small>
+
+                        </div>
+
+
+                        <div class="result-card">
+
+                            <span>Phase Angle</span>
+
+                            <strong id="phaseAngle">—</strong>
+
+                            <small>°</small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- POWER TRIANGLE -->
+
+            <div class="triangle-container">
+
+                <h3 data-en="Dynamic Power Triangle" data-fr="Triangle des puissances dynamique">
+                    Dynamic Power Triangle
+                </h3>
+
+                <p data-en="The triangle changes automatically according to the calculated values."
+                    data-fr="Le triangle change automatiquement selon les valeurs calculées.">
+                    The triangle changes automatically according to the calculated values.
+                </p>
+
+
+                <svg id="powerTriangle" viewBox="0 0 500 350">
+
+                    <line x1="70" y1="280" x2="430" y2="280" class="axis" />
+
+                    <line x1="70" y1="280" x2="70" y2="50" class="axis" />
+
+                    <polygon id="triangleShape" points="70,280 70,280 70,280" class="power-shape" />
+
+                    <text id="pLabel" x="250" y="310">
+                        P
+                    </text>
+
+                    <text id="qLabel" x="40" y="160">
+                        Q
+                    </text>
+
+                    <text id="sLabel" x="250" y="160">
+                        S
+                    </text>
+
+                </svg>
+
+            </div>
+
+
+            <button class="pdf-btn" onclick="downloadPDF()">
+                📄
+                <span data-en="Download PDF Report" data-fr="Télécharger le rapport PDF">
+                    Download PDF Report
+                </span>
+            </button>
+
+        </section>
+
+
+        <!-- ================= FORMULAS ================= -->
+
+        <section id="formulas" class="section">
+
+            <div class="section-title">
+
+                <span>03</span>
+
+                <h2 data-en="Engineering Formulas" data-fr="Formules d'ingénierie">
+                    Engineering Formulas
+                </h2>
+
+            </div>
+
+
+            <div class="formula-grid">
+
+                <div class="formula-card">
+
+                    <h3>Apparent Power</h3>
+
+                    <div class="formula">
+                        S = √3 × V<sub>L</sub> × I<sub>L</sub>
+                    </div>
+
+                    <p>Unit: VA</p>
+
+                </div>
+
+
+                <div class="formula-card">
+
+                    <h3>Active Power</h3>
+
+                    <div class="formula">
+                        P = √3 × V<sub>L</sub> × I<sub>L</sub> × cosφ
+                    </div>
+
+                    <p>Unit: W</p>
+
+                </div>
+
+
+                <div class="formula-card">
+
+                    <h3>Reactive Power</h3>
+
+                    <div class="formula">
+                        Q = √3 × V<sub>L</sub> × I<sub>L</sub> × sinφ
+                    </div>
+
+                    <p>Unit: VAR</p>
+
+                </div>
+
+
+                <div class="formula-card">
+
+                    <h3>Star Connection</h3>
+
+                    <div class="formula">
+                        V<sub>ph</sub> = V<sub>L</sub> / √3
+                    </div>
+
+                    <div class="formula">
+                        I<sub>ph</sub> = I<sub>L</sub>
+                    </div>
+
+                </div>
+
+
+                <div class="formula-card">
+
+                    <h3>Delta Connection</h3>
+
+                    <div class="formula">
+                        V<sub>ph</sub> = V<sub>L</sub>
+                    </div>
+
+                    <div class="formula">
+                        I<sub>ph</sub> = I<sub>L</sub> / √3
+                    </div>
+
+                </div>
+
+
+                <div class="formula-card">
+
+                    <h3>Power Factor</h3>
+
+                    <div class="formula">
+                        cosφ = P / S
+                    </div>
+
+                    <p>0 ≤ cosφ ≤ 1</p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= AUTHOR ================= -->
+
+        <section id="author" class="section author-section">
+
+            <div class="section-title">
+
+                <span>04</span>
+
+                <h2 data-en="Project & Skills" data-fr="Projet & compétences">
+                    Project & Skills
+                </h2>
+
+            </div>
+
+
+            <div class="author-card">
+
+                <div class="author-icon">
+                    ⚡
+                </div>
+
+                <h2>Electrical Engineering Portfolio</h2>
+
+                <p data-en="A practical web project combining electrical engineering and programming."
+                    data-fr="Un projet web pratique combinant l'ingénierie électrique et la programmation.">
+                    A practical web project combining electrical engineering and programming.
+                </p>
+
+
+                <div class="skills">
+
+                    <span>HTML</span>
+                    <span>CSS</span>
+                    <span>JavaScript</span>
+                    <span>Electrical Engineering</span>
+                    <span>Three-Phase Systems</span>
+                    <span>Power Analysis</span>
+
+                </div>
+
+
+                <a href="https://github.com/YOUR-USERNAME/three-phase-power-analyzer" target="_blank"
+                    class="github-btn">
+                    View Project on GitHub ↗
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            ⚡ Three-Phase Power Analyzer
+        </p>
+
+        <p>
+            Electrical Engineering Project • 2026
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
